@@ -1,0 +1,13 @@
+*.pyc
+*.pyo
+*.swp
+*.sqlite3
+
+*.exe
+*.so
+*.lib
+
+env/
+collected_static/
+media/
+
