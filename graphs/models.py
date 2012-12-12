@@ -9,6 +9,8 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class GraphQuestionType(models.Model):
+    name = models.CharField(_('name'), max_length=50)  # TODO: ? treba to tu?
+
     is_directed = models.BooleanField()
     is_weighted = models.BooleanField()
     is_multigraph = models.BooleanField()
@@ -30,7 +32,7 @@ class GraphQuestionType(models.Model):
         verbose_name_plural = _('graph question types')
 
     def __unicode__(self):
-        pass
+        return self.name
 
 class GraphEdge(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -45,7 +47,7 @@ class GraphEdge(models.Model):
         verbose_name_plural = _('graph edges')
 
     def __unicode__(self):
-        pass
+        self.name
     
 class GraphVertex(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -65,7 +67,7 @@ class GraphVertex(models.Model):
         verbose_name_plural = _('graph vertices')
 
     def __unicode__(self):
-        pass
+        self.name
     
 class GraphQuestionParams(models.Model):
     workspace_height = models.PositiveSmallIntegerField()
@@ -78,5 +80,4 @@ class GraphQuestionParams(models.Model):
         verbose_name_plural = _('graph question params configs')
 
     def __unicode__(self):
-        pass
-    
+        self.question

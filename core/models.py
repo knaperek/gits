@@ -13,6 +13,7 @@ GRADE_DECIMAL_PLACES = 2
 DECDEF = {'max_digits': GRADE_MAX_DIGITS, 'decimal_places': GRADE_DECIMAL_PLACES}  # decimal defaults (helper dictionary)
 
 class Quiz(models.Model):
+    name = models.CharField(_('name'), max_length=50)
     shuffle_questions = models.BooleanField(_('shuffle questions'), default=False)
     time_limit = models.PositiveIntegerField(_('time limit'), null=True)
     auto_open_at = models.DateTimeField(_('auto open at'), null=True)
@@ -29,7 +30,7 @@ class Quiz(models.Model):
         verbose_name_plural = _('quizes')
 
     def __unicode__(self):
-        pass
+        return self.name
     
 class QuizRandomQuestionsGroup(models.Model):
     """ Intermediary table for m <--> n """
@@ -42,7 +43,7 @@ class QuizRandomQuestionsGroup(models.Model):
         verbose_name_plural = _('random questions groups for quizes')
 
     def __unicode__(self):
-        pass
+        return self.quiz
 		
 class QuestionGroup(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -54,7 +55,7 @@ class QuestionGroup(models.Model):
         verbose_name_plural = _('question groups')
 
     def __unicode__(self):
-        pass
+        return self.name
 
 class CorrectAnswer(models.Model):
     label = models.CharField(_('label'), max_length=50)
@@ -67,7 +68,7 @@ class CorrectAnswer(models.Model):
         verbose_name_plural = _('correct answers')
 
     def __unicode__(self):
-        pass
+        return self.label
     
 class Question(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -83,7 +84,7 @@ class Question(models.Model):
         verbose_name_plural = _('questions')
 
     def __unicode__(self):
-        pass
+        return self.name
             
 
 class SolutionData(models.Model):
@@ -95,8 +96,7 @@ class SolutionData(models.Model):
         verbose_name_plural = _('solution data entries')
 
     def __unicode__(self):
-        pass
-    
+        return self.format_version
 
 class Answer(models.Model):
     grade = models.DecimalField(_('grade'), **DECDEF)
@@ -109,7 +109,7 @@ class Answer(models.Model):
         verbose_name_plural = _('answers')
 
     def __unicode__(self):
-        pass
+        return self.grade
 
 class QuizResult(models.Model):
     timestamp = models.DateTimeField(_('timestamp'))
@@ -123,7 +123,7 @@ class QuizResult(models.Model):
         verbose_name_plural = _('quiz results')
 
     def __unicode__(self):
-        pass
+        return self.timestamp
     
 class QuestionType(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -138,7 +138,7 @@ class QuestionType(models.Model):
         verbose_name_plural = _('quiestion types')
 
     def __unicode__(self):
-        pass
+        return self.name
 
 class Engine(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -149,7 +149,7 @@ class Engine(models.Model):
         verbose_name_plural = _('engines')
 
     def __unicode__(self):
-        pass
+        return self.name
     
 class GuiWidget(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -160,6 +160,6 @@ class GuiWidget(models.Model):
         verbose_name_plural = _('GUI widgets')
 
     def __unicode__(self):
-        pass
+        return self.name
     
     
