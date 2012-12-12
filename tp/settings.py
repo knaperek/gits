@@ -161,3 +161,6 @@ LOGGING = {
         },
     }
 }
+
+GRAPPELLI_ADMIN_TITLE = 'Demo - Testovanie znalostí s grafickým vstupom'
+
