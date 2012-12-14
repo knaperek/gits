@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 from django.db import models
 
-# from core.models import QuestionType, Engine, GuiWidget, Question
-from core.models import Engine, GuiWidget, Question
+from quiz_setup.models import Question
+from types_registry.models import Engine, GuiWidget
 
 from django.utils.translation import ugettext_lazy as _
 

@@ -2,7 +2,8 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User, Group
-from django.contrib.contenttypes.models import ContentType
+from types_registry.models import QuestionType
+# from django.contrib.contenttypes.models import ContentType
 from django.utils.translation import ugettext_lazy as _
 
 # TODO: skusit pouzit limit_choices_to na tie vybery priradenych zo vsetkych relevantnych
@@ -76,7 +77,7 @@ class Question(models.Model):
     mark = models.DecimalField(_('mark'), **DECDEF)
     background_image = models.ImageField(_('background image'), upload_to='images/backgrounds')
     init_data = models.ForeignKey('SolutionData')
-    question_type = models.ForeignKey('QuestionType')
+    question_type = models.ForeignKey(QuestionType)
     subtype_id = models.IntegerField()
 
     class Meta:
@@ -97,69 +98,3 @@ class SolutionData(models.Model):
 
     def __unicode__(self):
         return self.format_version
-
-class Answer(models.Model):
-    grade = models.DecimalField(_('grade'), **DECDEF)
-    answer_data = models.ForeignKey(SolutionData)
-    question = models.ForeignKey(Question)
-    quiz_result = models.ForeignKey('QuizResult')
-
-    class Meta:
-        verbose_name = _('answer')
-        verbose_name_plural = _('answers')
-
-    def __unicode__(self):
-        return self.grade
-
-class QuizResult(models.Model):
-    timestamp = models.DateTimeField(_('timestamp'))
-    duration = models.PositiveIntegerField(_('duration'))
-    total_grade = models.DecimalField(_('total_grade'), **DECDEF)
-    student = models.ForeignKey(User)
-    quiz = models.ForeignKey(Quiz)
-
-    class Meta:
-        verbose_name = _('quiz result')
-        verbose_name_plural = _('quiz results')
-
-    def __unicode__(self):
-        return self.timestamp
-    
-class QuestionType(models.Model):
-    name = models.CharField(_('name'), max_length=50)
-    subtypes_table = models.ForeignKey(ContentType, related_name='question_types1')
-    params_table = models.ForeignKey(ContentType, related_name='question_types2')
-    relevant_engines = models.ManyToManyField('Engine')
-    relevant_widgets_for_creation = models.ManyToManyField('GuiWidget', related_name='question_types1')
-    relevant_widgets_for_solution = models.ManyToManyField('GuiWidget', related_name='question_types2')
-
-    class Meta:
-        verbose_name = _('quiestion type')
-        verbose_name_plural = _('quiestion types')
-
-    def __unicode__(self):
-        return self.name
-
-class Engine(models.Model):
-    name = models.CharField(_('name'), max_length=50)
-    uniqid = models.CharField(_('unique identifier'), max_length=50)  # TODO: make custom field type
-
-    class Meta:
-        verbose_name = _('engine')
-        verbose_name_plural = _('engines')
-
-    def __unicode__(self):
-        return self.name
-    
-class GuiWidget(models.Model):
-    name = models.CharField(_('name'), max_length=50)
-    uniqid = models.CharField(_('unique identifier'), max_length=50)
-
-    class Meta:
-        verbose_name = _('GUI widget')
-        verbose_name_plural = _('GUI widgets')
-
-    def __unicode__(self):
-        return self.name
-    
-    
