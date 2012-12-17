@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 # TODO: skusit pouzit limit_choices_to na tie vybery priradenych zo vsetkych relevantnych
 
 # decimal settings for grades
-GRADE_MAX_DIGITS = 4
+GRADE_MAX_DIGITS = 5
 GRADE_DECIMAL_PLACES = 2
 DECDEF = {'max_digits': GRADE_MAX_DIGITS, 'decimal_places': GRADE_DECIMAL_PLACES}  # decimal defaults (helper dictionary)
 

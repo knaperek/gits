@@ -7,10 +7,10 @@ class QuestionTypeAdmin(admin.ModelAdmin):
 	pass
 
 class EngineAdmin(admin.ModelAdmin):
-	pass
+	prepopulated_fields = {"uniqid": ("name",)}
 
 class GuiWidgetAdmin(admin.ModelAdmin):
-	pass
+	prepopulated_fields = {"uniqid": ("name",)}
 
 admin.site.register(QuestionType, QuestionTypeAdmin)
 admin.site.register(Engine, EngineAdmin)

@@ -9,15 +9,15 @@ from django.utils.translation import ugettext_lazy as _
 
 class QuestionType(models.Model):
     name = models.CharField(_('name'), max_length=50)
-    subtypes_table = models.ForeignKey(ContentType, related_name='question_types1')
+    subtypes_table = models.ForeignKey(ContentType, related_name='question_types1')  # TODO: mozno premenovat na subtypes_config_table
     params_table = models.ForeignKey(ContentType, related_name='question_types2')
-    relevant_engines = models.ManyToManyField('Engine')
-    relevant_widgets_for_creation = models.ManyToManyField('GuiWidget', related_name='question_types1')
-    relevant_widgets_for_solution = models.ManyToManyField('GuiWidget', related_name='question_types2')
+    relevant_engines = models.ManyToManyField('Engine', blank=True)
+    relevant_widgets_for_creation = models.ManyToManyField('GuiWidget', related_name='question_types1', blank=True)
+    relevant_widgets_for_solution = models.ManyToManyField('GuiWidget', related_name='question_types2', blank=True)
 
     class Meta:
-        verbose_name = _('quiestion type')
-        verbose_name_plural = _('quiestion types')
+        verbose_name = _('question type')
+        verbose_name_plural = _('question types')
 
     def __unicode__(self):
         return self.name
