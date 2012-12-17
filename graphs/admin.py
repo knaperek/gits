@@ -32,6 +32,6 @@ class GraphQuestionParamsAdmin(admin.ModelAdmin):
     pass
 
 admin.site.register(GraphQuestionType, GraphQuestionTypeAdmin)
-admin.site.register(GraphEdge, GraphEdgeAdmin)
-admin.site.register(GraphVertex, GraphVertexAdmin)
+# admin.site.register(GraphEdge, GraphEdgeAdmin)
+# admin.site.register(GraphVertex, GraphVertexAdmin)
 # admin.site.register(GraphQuestionParams, GraphQuestionParamsAdmin)  # TODO: uncomment: disabled just for DEMO presentation
