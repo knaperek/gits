@@ -26,95 +26,19 @@ class KineticField(models.TextField):
 
 # TODO: delete these models (below). They are just for testing purposes.
 
+def get_default_JSON():
+	""" iba pre testovacie ucely """
+	import urllib2
+	response = urllib2.urlopen('http://team28-12.ucebne.fiit.stuba.sk/~kachman/value.json')
+	json_data = response.read()
+	# json_data = "<Test JSON>"
+	# print(json_data)
+	return str(json_data)
 
-example_JSON = """ 
-{
-"images": [
-       "images/network/router.png",
-       "images/network/switch.png",        
-       "images/network/computer.png",
-       "images/network/cloud.png",
-       "images/network/server.png",
-       "images/network/database.png"
-],
-"lines": [
-       "images/line/solid.png",
-       "images/line/dashed.png"                                        
-],
-"ports": [
-       [
-               "s0/0",
-               "s0/1",
-               "fa0/0",
-               "fa0/1",
-               "console"
-       ],
-       [
-               "fa0/0",
-               "fa0/1",
-               "fa0/2",
-               "fa0/3",
-               "fa0/4"
-       ],
-       [
-               "fast ethernet"
-       ],
-       [
-               "generic port 0",
-               "generic port 1",
-               "generic port 2",
-               "generic port 3"
-       ],
-       [
-               "fa0/0",
-               "fa0/1"
-       ],
-       [
-               "fa0/0",
-               "fa0/1"
-       ]
-],
-"port_limits": [
-       [
-               1,
-               1,
-               1,
-               1,
-               1
-       ],
-       [
-               1,
-               1,
-               1,
-               1,
-               1
-       ],
-       [
-               1
-       ],
-       [
-               1,
-               1,
-               1,
-               1
-       ],
-       [
-               1,
-               1
-       ],
-       [
-               1,
-               1
-       ]
-]
-};
-
-
-"""
 class TestWidgetSimple(models.Model):
-	jeden = KineticField(default=example_JSON)
+	jeden = KineticField(default=get_default_JSON())  # TODO: bug v Djangu? (ked dam callable, tak to da ten input element dva krat za sebou!!!)
 
 class TestWidgetMulti(models.Model):
-    jeden = KineticField(default=example_JSON)
-    druhy = KineticField(default=example_JSON)
-    treti = KineticField(default=example_JSON)
+    jeden = KineticField(default=get_default_JSON())
+    druhy = KineticField(default=get_default_JSON())
+    treti = KineticField(default=get_default_JSON())
