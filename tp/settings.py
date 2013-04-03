@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'quiz_setup',
     'results',
     'graphs',
+    'kinetic_widget',
 )
 
 # A sample logging configuration. The only tangible logging
