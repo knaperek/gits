@@ -36,16 +36,20 @@ def get_default_JSON():
 	return str(json_data)
 
 class TestWidgetSimple(models.Model):
-    class Meta:
-        verbose_name = 'Single Widget test'
-        verbose_name_plural = 'Single Widget tests'
 	jeden = KineticField(default=get_default_JSON())  # TODO: bug v Djangu? (ked dam callable, tak to da ten input element dva krat za sebou!!!)
 
+	class Meta:
+	    verbose_name = 'Single Widget test'
+	    verbose_name_plural = 'Single Widget tests'
+
+
 class TestWidgetMulti(models.Model):
-    class Meta:
-        verbose_name = 'Multiple Widgets test'
-        verbose_name_plural = 'Multiple Widgets tests'
     jeden = KineticField(default=get_default_JSON())
     druhy = KineticField(default=get_default_JSON())
     treti = KineticField(default=get_default_JSON())
+    
+    class Meta:
+        verbose_name = 'Multiple Widgets test'
+        verbose_name_plural = 'Multiple Widgets tests'
+
 
