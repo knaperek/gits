@@ -28,7 +28,7 @@ class KineticField(models.TextField):
 
 
 example_JSON = """ 
-JSONObject= {
+{
 "images": [
        "images/network/router.png",
        "images/network/switch.png",        
