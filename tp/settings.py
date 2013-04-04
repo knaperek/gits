@@ -165,6 +165,6 @@ LOGGING = {
     }
 }
 
-GRAPPELLI_ADMIN_TITLE = 'Testovanie znalostí s grafickým vstupom'
+GRAPPELLI_ADMIN_TITLE = 'GITS'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
