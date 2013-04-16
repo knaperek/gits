@@ -36,7 +36,7 @@ def get_default_JSON():
 	return str(json_data)
 
 class TestWidgetSimple(models.Model):
-	jeden = KineticField(default=get_default_JSON())  # TODO: bug v Djangu? (ked dam callable, tak to da ten input element dva krat za sebou!!!)
+	jeden = KineticField(default=get_default_JSON)  # TODO: bug v Djangu? (ked dam callable, tak to da ten input element dva krat za sebou!!!) # update: to nie je bug, ono dava vzdy druhe pole (hiddne) s defaultnou hodnotou - ktora bola na zaciatku - asi kvoli nejakym js-enabled widgetom, ktore umoznouju "undo" alebo nieco take
 
 	class Meta:
 	    verbose_name = 'Single Widget test'
