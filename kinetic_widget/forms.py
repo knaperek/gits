@@ -21,7 +21,7 @@ class KineticWidget(forms.HiddenInput):
         }
         # js = ('jquery.js', 'kinetic_widget/TODO.js')
         js = ('http://team28-12.ucebne.fiit.stuba.sk/~kachman/drag_drop.js', 
-            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/kinetic-v4.4.0.min.js',
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/kinetic-v4.4.3.min.js',
             'http://team28-12.ucebne.fiit.stuba.sk/~kachman/on_load.js',
             'http://team28-12.ucebne.fiit.stuba.sk/~kachman/JSON.js',
             'http://team28-12.ucebne.fiit.stuba.sk/~kachman/context.js',)
