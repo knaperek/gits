@@ -47,9 +47,9 @@ class TestWidgetSimple(models.Model):
 
 
 class TestWidgetMulti(models.Model):
-    jeden = KineticField(default=get_default_JSON())
-    druhy = KineticField(default=get_default_JSON())
-    treti = KineticField(default=get_default_JSON())
+    jeden = KineticField(default=get_default_JSON)
+    druhy = KineticField(default=get_default_JSON)
+    treti = KineticField(default=get_default_JSON)
     
     class Meta:
         verbose_name = 'Multiple Widgets test'
