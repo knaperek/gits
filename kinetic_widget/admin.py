@@ -17,16 +17,17 @@ class TestWidgetSimpleAdmin(admin.ModelAdmin):
         return my_urls + urls
 
     def test_compare_graphs(self, request, queryset):
-        g1, g2 = queryset[:2]
-        from kinetic_widget.iso import check_isomorphism
-        print('-----------')
-        print(g1.jeden)
-        print('-----------')
-        result = check_isomorphism(g1.jeden, g2.jeden)
-        if result:
-            messages.success(request, u'Grafy sú izomorfné')
-        else:
-            messages.error(request, u'Grafy nie sú izomorfné!')
+        try:
+            g1, g2 = queryset[:2]
+            from kinetic_widget.iso import check_isomorphism
+            result = check_isomorphism(g1.jeden, g2.jeden)
+            if result:
+                messages.success(request, u'Grafy sú izomorfné')
+            else:
+                messages.error(request, u'Grafy nie sú izomorfné!')
+        except ValueError as err:
+            messages.error(request, unicode(err))
+            
         return redirect('admin:kinetic_widget_testwidgetsimple_changelist')
     test_compare_graphs.short_description = 'Porovnať 2 grafy'
 
