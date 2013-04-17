@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
 
 from quiz_setup.models import Question
-from types_registry.models import Engine, GuiWidget
+from types_registry.models import QuestionType, Engine, GuiWidget
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -24,9 +25,22 @@ class GraphQuestionType(models.Model):
     solving_widget_config = models.TextField(blank=True)
     engine_config = models.TextField(blank=True)
 
+    @classmethod
+    def get_engines_choices(cls):
+        ct = ContentType.objects.get_for_model(cls)
+        qtype = QuestionType.objects.get(subtypes_table=ct)
+        engines = qtype.relevant_engines
+        return engines.values('id')
+
     widget_for_creation = models.ForeignKey(GuiWidget, related_name='graph_question_types1')
     widget_for_solution = models.ForeignKey(GuiWidget, related_name='graph_question_types2')
-    engine_for_assessment = models.ForeignKey(Engine)
+    # engine_for_assessment = models.ForeignKey(Engine, limit_choices_to={'name__startswith': 'i'})
+    # engine_for_assessment = models.ForeignKey(Engine, limit_choices_to={'graphquestiontype': get_engines_choices})
+    # engine_for_assessment = models.ForeignKey(Engine, limit_choices_to={'id__in': get_engines_choices})
+    engine_for_assessment = models.ForeignKey(Engine, limit_choices_to={
+        'id__in': [1, 2, 3]
+        # 'id__in': QuestionType.objects.get(subtypes_table=ContentType.objects.get_for_model(__class__)).relevant_engines.values('id')
+    })
 
     class Meta:
         verbose_name = _('graph question type')
@@ -34,6 +48,7 @@ class GraphQuestionType(models.Model):
 
     def __unicode__(self):
         return self.name
+
 
 class GraphEdge(models.Model):
     name = models.CharField(_('name'), max_length=50)

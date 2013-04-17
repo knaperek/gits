@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'results',
     'graphs',
     'kinetic_widget',
+    # 'south',
 )
 
 # A sample logging configuration. The only tangible logging
