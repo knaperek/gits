@@ -7,6 +7,9 @@ from quiz_setup.models import Question
 from types_registry.models import QuestionType, Engine, GuiWidget
 
 from django.utils.translation import ugettext_lazy as _
+import json
+
+from kinetic_widget.models import get_default_JSON  # $&
 
 
 class GraphQuestionType(models.Model):
@@ -42,6 +45,29 @@ class GraphQuestionType(models.Model):
         # 'id__in': QuestionType.objects.get(subtypes_table=ContentType.objects.get_for_model(__class__)).relevant_engines.values('id')
     })
 
+    def get_default_SolutionData(self):  # Mandatory API function
+        """ This method has to be implemented in each ...QuestionType extension, returning default JSON """
+
+        # return get_default_JSON()
+
+        d = {}
+        vertices = list(self.graphvertex_set.all())
+        d['images'] = [i.image.url for i in vertices]
+        d['lines'] = [
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/solid.png',
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/dashed.png',
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/solid_red.png',
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/dashed_red.png',
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/solid_cyan.png',
+            'no',
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/small_dashed_black.png',
+        ]
+        d['ports'] = [i.port_names.split(',') for i in vertices]
+        d['port_limits'] = [[1]*len(i) for i in d['ports']]
+        d['load'] = 'no'
+
+        return json.dumps(d)
+
     class Meta:
         verbose_name = _('graph question type')
         verbose_name_plural = _('graph question types')
@@ -50,6 +76,7 @@ class GraphQuestionType(models.Model):
         return self.name
 
 
+# UPDATE: mozno nahradit napevno danym vyberom (enum) hran. (Dovod: kinetic widget nepodporuje hrany z obrazku)
 class GraphEdge(models.Model):
     name = models.CharField(_('name'), max_length=50)
     uniqid = models.CharField(_('unique identifier'), max_length=50)
@@ -64,6 +91,13 @@ class GraphEdge(models.Model):
 
     def __unicode__(self):
         return self.name
+
+# Not used because of the need of nested inlines, which are not supported by Admin yet.
+# class GraphVertexPort(models.Model):
+#     """ Represents port as a part of GraphVertex """
+#     name = models.CharField(_('name'), max_length=50)
+#     max_connections = models.PositiveSmallIntegerField(null=True, blank=True)
+#     vertex = models.ForeignKey(GraphVertex)
     
 class GraphVertex(models.Model):
     name = models.CharField(_('name'), max_length=50)
@@ -72,11 +106,13 @@ class GraphVertex(models.Model):
     default_height = models.PositiveSmallIntegerField(default=100, null=True, blank=True)
     default_width = models.PositiveSmallIntegerField(default=100, null=True, blank=True)
     is_resizable = models.BooleanField(default=False)
-    max_ports = models.SmallIntegerField(null=True, blank=True)
-    max_in_ports = models.SmallIntegerField(null=True, blank=True)
-    max_out_ports = models.SmallIntegerField(null=True, blank=True)
-    in_out_ratio = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     question_type = models.ForeignKey(GraphQuestionType)
+    # Not Implemented:
+    # max_ports = models.SmallIntegerField(null=True, blank=True)
+    # max_in_ports = models.SmallIntegerField(null=True, blank=True)
+    # max_out_ports = models.SmallIntegerField(null=True, blank=True)
+    # in_out_ratio = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    port_names = models.CharField(_('port names'), max_length=200, blank=True, help_text=_('comma separated list of port names'))
 
     class Meta:
         verbose_name = _('graph vertex')
