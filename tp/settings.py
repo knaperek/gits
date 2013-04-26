@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'results',
     'graphs',
     'kinetic_widget',
+    'exam',
     # 'south',
 )
 
