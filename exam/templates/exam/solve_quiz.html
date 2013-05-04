@@ -1,0 +1,16 @@
+{% extends "exam/base.html" %}
+{% block extrahead %}
+	{{ form.media }}
+{% endblock %}
+
+{% block content %}
+<h1>Solve quiz template</h1>
+<ul>
+	<li>Quiz ID: {{ quiz.id }}</li>
+	<li>Page number: {{ page }}</li>
+</ul>
+<form action="{% url 'exam:solve-quiz' quiz.id page %}" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Next >>" />
+</form>
+{% endblock content %}
