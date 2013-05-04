@@ -172,3 +172,6 @@ LOGGING = {
 GRAPPELLI_ADMIN_TITLE = 'GITS'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+# Custom local settings and overrides
+from local_settings import *
