@@ -53,6 +53,7 @@ class GraphQuestionType(models.Model):
         d = {}
         vertices = list(self.graphvertex_set.all())
         d['images'] = [i.image.url for i in vertices]
+        d['names'] = [i.name for i in vertices]
         d['lines'] = [
             'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/solid.png',
             'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/dashed.png',
@@ -64,6 +65,11 @@ class GraphQuestionType(models.Model):
         ]
         d['ports'] = [i.port_names.split(',') for i in vertices]
         d['port_limits'] = [[1]*len(i) for i in d['ports']]
+        d['others'] = [
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/line/cancel.png',
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/misc/trash-icon.png',
+            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/images/misc/trash-icon-clicked.png'
+        ]
         d['load'] = 'no'
 
         return json.dumps(d)
