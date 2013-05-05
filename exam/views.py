@@ -74,7 +74,7 @@ def solve_quiz(request, quiz_id, page=None):
         try:
             print('A')
             # print(Answer.objects.filter(quiz_result=quiz_result, question=question).count())
-            answer_data = Answer.objects.get(quiz_result=quiz_result, question=question)
+            answer_data = Answer.objects.get(quiz_result=quiz_result, question=question).answer_data
             print('Answer data: {}'.format(answer_data))
             # TODO: preco s "filter" to nepada, a s get to pada... wtf
             # answer_data = Answer.objects.filter(quiz_result=quiz_result, question=question)
