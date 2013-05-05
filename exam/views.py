@@ -83,10 +83,10 @@ def solve_quiz(request, quiz_id, page=None):
             print('c')
         except Answer.DoesNotExist:
             print('Anser.DoesNotExist exception handled')
-            form = QuizSolveForm(initial={'answer_data': question.default_SolutionData()})  # use empty form (no pre-saved work will be displayed)
+            form = QuizSolveForm(initial={'answer_data': question.init_data})  # use empty form (no pre-saved work will be displayed)
 
     # return render(request, 'exam/solve_quiz.html', {'questions': questions})
-    return render(request, 'exam/solve_quiz.html', {'form': form, 'quiz': quiz, 'page': page})
+    return render(request, 'exam/solve_quiz.html', {'form':form, 'quiz':quiz, 'question':question, 'page':page})
 
 
 # # UPDATE: this view will be implemented as part of the detail view

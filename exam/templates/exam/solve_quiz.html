@@ -9,8 +9,17 @@
 	<li>Quiz ID: {{ quiz.id }}</li>
 	<li>Page number: {{ page }}</li>
 </ul>
-<form action="{% url 'exam:solve-quiz' quiz.id page %}" method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Next >>" />
-</form>
+<div>
+	<h3>Zadanie ulohy</h3>
+	<div>{{ question.question_text }}</div>
+</div>
+<div>
+	<h3>Riešenie</h3>
+	<div>
+		<form action="{% url 'exam:solve-quiz' quiz.id page %}" method="post">{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Next >>" />
+		</form>
+	</div>
+</div>
 {% endblock content %}
