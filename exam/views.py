@@ -7,20 +7,24 @@ from django.db.models import F, Q, Sum, Count
 from django.shortcuts import get_object_or_404, get_list_or_404, render
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 from quiz_setup.models import *
 from exam.forms import QuizSolveForm
 from results.models import *
 
+@login_required
 def index(request):
     """ Index User view """
     return render(request, 'exam/index.html')
 
+@login_required
 def quiz_detail(request, quiz_id):
     """ Quiz Detail page with basic info about the Quiz and possibli a button for starting the Quiz. """
     quiz = get_object_or_404(Quiz, id=quiz_id)
     return render(request, 'exam/quiz_detail.html', {'quiz': quiz})
 
+@login_required
 def solve_quiz(request, quiz_id, page=None):
     """ Displays quiz questions and allows the student to submit his work for assessment. """
     quiz_id = int(quiz_id)
@@ -94,5 +98,5 @@ def solve_quiz(request, quiz_id, page=None):
 #     """ Confirmation/Submitting of the solved quiz. """
 #     return render(request, 'exam/submit_quiz.html', {'quiz': quiz})
 
-# TODO: User Authentication (maybe through decorators...)
+# TODO: User Authentication
 # TODO: Add question order - through sequence number between m2m connection
