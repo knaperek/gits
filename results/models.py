@@ -33,7 +33,7 @@ class Answer(models.Model):
 class QuizResult(models.Model):
     timestamp = models.DateTimeField(_('timestamp'), default=datetime.datetime.now)
     duration = models.PositiveIntegerField(_('duration'), null=True)
-    total_grade = models.DecimalField(_('total_grade'), null=True, **DECDEF)
+    total_grade = models.DecimalField(_('total grade'), null=True, **DECDEF)
     student = models.ForeignKey(User)
     quiz = models.ForeignKey(Quiz)
 
