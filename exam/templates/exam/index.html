@@ -2,6 +2,15 @@
 
 {% block content %}
 <h1>Index template</h1>
-<a href="{% url 'exam:quiz-detail' 1 %}">Quiz detail [1]</a>
+<div class="quiz_list">
+<h2>My quizes</h2>
+<ul>
+{% for quiz in quizes %}
+	<li><a href="{% url 'exam:quiz-detail' quiz.id %}">{{ quiz }}</a></li>
+{% empty %}
+	<li>No quizes.</li>
+{% endfor %}
+</ul>
+</div>
 {% endblock content %}
 

@@ -16,7 +16,8 @@ from results.models import *
 @login_required
 def index(request):
     """ Index User view """
-    return render(request, 'exam/index.html')
+    quizes = list(request.user.quiz_set.all())
+    return render(request, 'exam/index.html', {'quizes': quizes})
 
 @login_required
 def quiz_detail(request, quiz_id):
@@ -76,15 +77,9 @@ def solve_quiz(request, quiz_id, page=None):
     else:
         print('GET')
         try:
-            print('A')
-            # print(Answer.objects.filter(quiz_result=quiz_result, question=question).count())
             answer_data = Answer.objects.get(quiz_result=quiz_result, question=question).answer_data
             print('Answer data: {}'.format(answer_data))
-            # TODO: preco s "filter" to nepada, a s get to pada... wtf
-            # answer_data = Answer.objects.filter(quiz_result=quiz_result, question=question)
-            print('b')
             form = QuizSolveForm(initial={'answer_data': answer_data})
-            print('c')
         except Answer.DoesNotExist:
             print('Anser.DoesNotExist exception handled')
             form = QuizSolveForm(initial={'answer_data': question.init_data})  # use empty form (no pre-saved work will be displayed)
@@ -98,5 +93,6 @@ def solve_quiz(request, quiz_id, page=None):
 #     """ Confirmation/Submitting of the solved quiz. """
 #     return render(request, 'exam/submit_quiz.html', {'quiz': quiz})
 
-# TODO: User Authentication
+# TODO: check if the quiz requested by user is opened for him (maybe use decorator user_passes_test)
 # TODO: Add question order - through sequence number between m2m connection
+# TODO: add project index page (info about project - face page, big logo). From that page links will point to /admin and /exam
