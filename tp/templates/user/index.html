@@ -1,0 +1,8 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+<ul>
+	<li><a href="{% url 'exam:index' %}">Student</a></li>
+	<li><a href="{% url 'admin:index' %}">Teacher</a></li>
+</ul>
+{% endblock content %}
