@@ -1,7 +1,11 @@
 {% extends "admin/base.html" %}
-{% load i18n %}
+{% load i18n %}{% load staticfiles %}
 
 {% block title %}{{ title }} | {% trans 'Quizes Administration' %}{% endblock %}
+{% block extrastyle %}
+	<link rel="shortcut icon" href="{% static "img/favicon.ico" %}" />
+	{{ block.super }}
+{% endblock extrastyle %}
 
 {% block branding %}
 <h1 id="site-name">{% trans 'GITS' %}</h1>
