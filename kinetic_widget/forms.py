@@ -1,11 +1,12 @@
 from django import forms
+from django.conf import settings
 
 class KineticFormField(forms.CharField):
     def __init__(self, *args, **kwargs):  # required, label, initial, widget, help_text
         defaults = {'widget': KineticWidget}
         kwargs.update(defaults)
         return super(KineticFormField, self).__init__(*args, **kwargs)
-
+        
 
 class KineticWidget(forms.HiddenInput):
     def __init__(self, attrs=None):
@@ -16,15 +17,13 @@ class KineticWidget(forms.HiddenInput):
 
     class Media:
         css = {
-            # 'all': ('kinetic_widget/TODO.css',)
-            'all': ('http://team28-12.ucebne.fiit.stuba.sk/~kachman/style.css',)
+            'all': ('kinetic_widget/style.css',)
         }
-        # js = ('jquery.js', 'kinetic_widget/TODO.js')
-        js = ('http://team28-12.ucebne.fiit.stuba.sk/~kachman/drag_drop.js', 
-            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/kinetic-v4.4.3.min.js',
-            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/on_load.js',
-            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/JSON.js',
-            'http://team28-12.ucebne.fiit.stuba.sk/~kachman/context.js',)
+        js = ('kinetic_widget/drag_drop.js', 
+            'kinetic_widget/kinetic-v4.4.3.min.js',
+            'kinetic_widget/on_load.js',
+            'kinetic_widget/JSON.js',
+            'kinetic_widget/context.js',)
 
     # def render(self, name, value, attrs=None):
     #     widget_html = '<div>foo bar</div>'

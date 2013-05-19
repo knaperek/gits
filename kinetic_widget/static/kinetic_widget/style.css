@@ -1,0 +1,118 @@
+body{
+
+}
+#lala{
+	position: absolute;
+	top: 28px;
+}
+#kokocina{
+	margin-top: 0px;
+	margin-left:0px;
+}
+#bullshit{
+	float: left, bottom;
+	margin-top: 0px;
+	margin-left:0px;
+}
+
+div.container{
+	float: left;
+	width: 800px;
+	height: 600px;
+	padding: 0px;
+	margin: 5px;
+	border: 1px solid #aaaaaa;
+}
+div.toolbox{
+	float:left;
+	margin:5px;
+	width: 70px;
+}
+
+div.lines{
+	float: left;
+	margin: 5px;
+	width: 70px;
+}
+
+div.divContext{
+	border: 1px solid blue;
+	display: none;
+	position: fixed;
+	background-color: #e6e6e6;
+	list-style-type: none;
+	padding: 5px;
+	font-family: "Courier New";
+}
+
+img.drag1{
+	display:block;
+	margin: 5px;
+	float: left;
+	width:60px;
+	height:60px;
+}
+
+button.trash{
+	border: 1px solid black;
+	margin: 5px;
+	padding: 0px;
+	float: left;
+	width:60px;
+	height:60px;
+}
+
+img.button_image{
+	padding: 0px;
+	margin: 0px;
+	width:50px;
+	height:50px;
+	border-radius: 10px;
+}
+
+img.button_trash{
+ padding: 0px;
+ margin: 0px;
+ width:50px;
+ height:50px;
+ border-radius: 10px;
+}
+
+button.line{
+	margin: 5px;
+	padding: 0px;
+	float: left;
+	width:60px;
+	height:60px;
+}
+
+.cmenu {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+    background-color: white;
+}
+
+.cmenu li:hover {}
+
+.cmenu hr {
+	border: 0;
+	border-bottom: 1px solid grey;
+    margin: 3px 0px 3px 0px;
+	width: 10em;
+}
+
+.cmenu a {
+	border: 0 !important;
+}
+
+.cmenu a:hover {
+	text-decoration: underline !important;
+}
+
+.cmenu .topSep {
+	font-size: 90%;
+	border-top: 1px solid gray;
+    margin-top: 0.3em;
+	padding-top: 0.3em;
+}

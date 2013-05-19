@@ -9,7 +9,7 @@ class KineticField(models.TextField):
 
     def __init__(self, *args, **kwargs):
         defaults = {
-            'help_text': 'Graphic widget',
+            # 'help_text': 'Graphic widget',
             'default': '',
             # 'max_length': 1000,
         }
