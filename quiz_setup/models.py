@@ -7,7 +7,8 @@ from types_registry.models import QuestionType
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
-from kinetic_widget.models import KineticField, get_default_JSON # $&
+from kinetic_widget.models import KineticField # $&
+# from kinetic_widget.models import get_default_JSON # $&
 
 # TODO: skusit pouzit limit_choices_to na tie vybery priradenych zo vsetkych relevantnych
 
@@ -149,7 +150,8 @@ class Question(models.Model):
 
 class SolutionData(models.Model):
     # layout = models.TextField(_('layout'))
-    layout = KineticField(default=get_default_JSON)  # $&
+    # layout = KineticField(default=get_default_JSON)  # $&
+    layout = KineticField()  # $&
     # format_version = models.CharField(_('format version'), max_length=12, default='0.1')
 
     class Meta:

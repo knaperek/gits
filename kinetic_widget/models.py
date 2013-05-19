@@ -26,36 +26,36 @@ class KineticField(models.TextField):
 
 # TODO: delete these models (below). They are just for testing purposes.
 
-def get_default_JSON():
-    """ iba pre testovacie ucely """
-    import urllib2
-    response = urllib2.urlopen('http://team28-12.ucebne.fiit.stuba.sk/~kachman/value.json')
-    json_data = response.read()
-    # json_data = "<Test JSON>"
-    # print(json_data)
-    return str(json_data)
+# def get_default_JSON():
+#     """ iba pre testovacie ucely """
+#     import urllib2
+#     response = urllib2.urlopen('http://team28-12.ucebne.fiit.stuba.sk/~kachman/value.json')
+#     json_data = response.read()
+#     # json_data = "<Test JSON>"
+#     # print(json_data)
+#     return str(json_data)
 
-class TestWidgetSimple(models.Model):
-    jeden = KineticField(default=get_default_JSON)  # TODO: bug v Djangu? (ked dam callable, tak to da ten input element dva krat za sebou!!!) # update: to nie je bug, ono dava vzdy druhe pole (hiddne) s defaultnou hodnotou - ktora bola na zaciatku - asi kvoli nejakym js-enabled widgetom, ktore umoznouju "undo" alebo nieco take
+# class TestWidgetSimple(models.Model):
+#     jeden = KineticField(default=get_default_JSON)  # TODO: bug v Djangu? (ked dam callable, tak to da ten input element dva krat za sebou!!!) # update: to nie je bug, ono dava vzdy druhe pole (hiddne) s defaultnou hodnotou - ktora bola na zaciatku - asi kvoli nejakym js-enabled widgetom, ktore umoznouju "undo" alebo nieco take
 
-    class Meta:
-        verbose_name = 'Single Widget test'
-        verbose_name_plural = 'Single Widget tests'
+#     class Meta:
+#         verbose_name = 'Single Widget test'
+#         verbose_name_plural = 'Single Widget tests'
 
-    def __unicode__(self):
-        return 'Simple Widget #{}'.format(self.id)
+#     def __unicode__(self):
+#         return 'Simple Widget #{}'.format(self.id)
 
 
-class TestWidgetMulti(models.Model):
-    jeden = KineticField(default=get_default_JSON)
-    druhy = KineticField(default=get_default_JSON)
-    treti = KineticField(default=get_default_JSON)
+# class TestWidgetMulti(models.Model):
+#     jeden = KineticField(default=get_default_JSON)
+#     druhy = KineticField(default=get_default_JSON)
+#     treti = KineticField(default=get_default_JSON)
     
-    class Meta:
-        verbose_name = 'Multiple Widgets test'
-        verbose_name_plural = 'Multiple Widgets tests'
+#     class Meta:
+#         verbose_name = 'Multiple Widgets test'
+#         verbose_name_plural = 'Multiple Widgets tests'
 
-    def __unicode__(self):
-        return 'Multi Widget #{}'.format(self.id)
+#     def __unicode__(self):
+#         return 'Multi Widget #{}'.format(self.id)
 
 

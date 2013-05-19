@@ -9,9 +9,6 @@ from types_registry.models import QuestionType, Engine, GuiWidget
 from django.utils.translation import ugettext_lazy as _
 import json
 
-from kinetic_widget.models import get_default_JSON  # $&
-
-
 class GraphQuestionType(models.Model):
     name = models.CharField(_('name'), max_length=50)  # TODO: ? treba to tu?
 
