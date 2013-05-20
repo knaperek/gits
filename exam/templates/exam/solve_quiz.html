@@ -4,17 +4,17 @@
 {% endblock %}
 
 {% block content %}
-<h1>Solve quiz template</h1>
-<ul>
-	<li>Quiz ID: {{ quiz.id }}</li>
-	<li>Page number: {{ page }}</li>
-</ul>
+<h1>Solve quiz: {{ quiz }}</h1>
+{# <ul> #}
+	{# <li>Quiz ID: {{ quiz.id }}</li> #}
+	{# <li>Page number: {{ page }}</li> #}
+{# </ul> #}
 <div>
-	<h3>Zadanie ulohy</h3>
+	<h3>Assignment</h3>
 	<div>{{ question.question_text }}</div>
 </div>
 <div>
-	<h3>Riešenie</h3>
+	<h3>Solution</h3>
 	<div>
 		<form action="{% url 'exam:solve-quiz' quiz.id page %}" method="post">{% csrf_token %}
 		{{ form.as_p }}

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import datetime
 from django.db import models
 from django.contrib.auth.models import User, Group
 from types_registry.models import QuestionType
@@ -36,7 +37,27 @@ class Quiz(models.Model):
 
     def __unicode__(self):
         return self.name
-    
+
+    @property
+    def is_opened(self):
+        """ Evaluates attributes and current time and tells if the quiz is currently opened. """
+        # TODO: make use of TZ (see django utils: now, ...)
+        return self.manually_opened or self.auto_open_at <= datetime.datetime.now() <= self.auto_close_at
+
+    def is_opened_for_user(self, user):
+        """ Checks if the user is allowed to take the quiz. Does not check if the quiz is opened right now! """
+        # Teacher is always allowed to take the course 
+        if user == self.teacher: 
+            return True
+        # Check individual users allowed to take the quiz
+        # if user in self.users_opened_for.all() and not self.quizresult_set.filter(student=user).exists():  # Do not allow students to repeat the quiz (for now /TODO)
+        if user in self.users_opened_for.all():  # update: dont check otherwise user would not be allowed to continue with next pages!
+            return True
+        # Check groups allowed to take the quiz
+        return bool(set(user.groups.all()) & set(self.groups_opened_for.all()))
+
+
+
 class QuizRandomQuestionsGroup(models.Model):
     """ Intermediary table for m <--> n """
     quiz = models.ForeignKey(Quiz)
@@ -160,3 +181,6 @@ class SolutionData(models.Model):
 
     def __unicode__(self):
         return 'Scheme [{}]'.format(self.id)
+
+
+from results.models import QuizResult

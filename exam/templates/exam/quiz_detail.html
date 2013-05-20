@@ -1,6 +1,20 @@
 {% extends "exam/base.html" %}
 
 {% block content %}
-<h1>Quiz detail template</h1>
-<a href="{% url 'exam:solve-quiz' 1 %}">Solve quiz [1]</a>
+<h1>Quiz detail: {{ quiz }}</h1>
+{% if solve_possible %}
+<div>
+	<a href="{% url 'exam:solve-quiz' quiz.id %}">Solve quiz: {{ quiz }}</a>
+</div>
+{% endif %}
+
+{% if result %}
+<div>
+<table>
+	<tr><td>Total grade:</td><td>{{ result.total_grade }}</td></tr>
+	<tr><td>Duration:</td><td>{{ result.duration }}</td></tr>
+	<tr><td>Started:</td><td>{{ result.timestamp }}</td></tr>
+</table>
+</div>
+{% endif %}
 {% endblock content %}

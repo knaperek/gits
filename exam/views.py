@@ -23,13 +23,27 @@ def index(request):
 def quiz_detail(request, quiz_id):
     """ Quiz Detail page with basic info about the Quiz and possibli a button for starting the Quiz. """
     quiz = get_object_or_404(Quiz, id=quiz_id)
-    return render(request, 'exam/quiz_detail.html', {'quiz': quiz})
+    try:
+        result = QuizResult.objects.get(student=request.user, quiz=quiz)
+    except QuizResult.DoesNotExist:
+        result = None
+
+    solve_possible = quiz.is_opened and quiz.is_opened_for_user(request.user)
+    return render(request, 'exam/quiz_detail.html', {'quiz': quiz, 'result': result, 'solve_possible': solve_possible})
 
 @login_required
 def solve_quiz(request, quiz_id, page=None):
     """ Displays quiz questions and allows the student to submit his work for assessment. """
     quiz_id = int(quiz_id)
     quiz = get_object_or_404(Quiz, id=quiz_id)
+
+    # Security checks
+    if not quiz.is_opened:
+        messages.error(request, 'The quiz is not opened right now.')
+        return HttpResponseRedirect(reverse('exam:quiz-detail', kwargs={'quiz_id':quiz_id}))
+    if not quiz.is_opened_for_user(request.user):
+        messages.error(request, 'Sorry, you are not allowed to take this quiz!')
+        return HttpResponseRedirect(reverse('exam:quiz-detail', kwargs={'quiz_id':quiz_id}))
 
     if page == None:
         # initialize quiz for the user
@@ -48,8 +62,8 @@ def solve_quiz(request, quiz_id, page=None):
     try:
         question = questions[page-1]  # TODO. For now, 1 question per page
     except IndexError:
-        messages.set_level(request, messages.DEBUG)
-        messages.debug(request, 'Last question answered.')
+        # messages.set_level(request, messages.DEBUG)
+        messages.info(request, 'Last question answered.')
         return HttpResponseRedirect(reverse('exam:quiz-detail', kwargs={'quiz_id':quiz_id}))
 
     print('Question id: {}'.format(question.id))
@@ -87,6 +101,15 @@ def solve_quiz(request, quiz_id, page=None):
     # return render(request, 'exam/solve_quiz.html', {'questions': questions})
     return render(request, 'exam/solve_quiz.html', {'form':form, 'quiz':quiz, 'question':question, 'page':page})
 
+
+# ############### Buduca implementacia #############
+# # Navrh na upravu: po spusteni testu studentom by sa vytvoril nejaky kontext-objekt,
+# # ktory by uchovaval docasny stav testu. Napr. by obsahoval vsetky otazky vybrane/vygenerovane pre
+# # daneho studenta a umoznil by mu tak navigovat sa medzi nimi. Toto bude potrebne najneskor v case, ked
+# # sa implementuje podpora nahodnych otazok (zo skupiny) alebo podpora zamiesavania otazok. Cely kviz pre
+# # studenta sa potom zostavi na zaciatku (najma vyber a poradie otazok) a nasledne mu budu otazky po jednej
+# # zobrazovane (podla predgenerovaneho poradia). Ked student kviz dokonci, odosle ho a az potom sa vytvori
+# # QuizResult a kviz sa ohodnoti.
 
 # # UPDATE: this view will be implemented as part of the detail view
 # def submit_quiz(request, quiz_id):
