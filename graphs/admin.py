@@ -14,7 +14,8 @@ class GraphEdgeInline(admin.StackedInline):
     prepopulated_fields = {"uniqid": ("name",)}
 
 class GraphQuestionTypeAdmin(admin.ModelAdmin):
-    inlines = [GraphVertexInline, GraphEdgeInline]
+    # inlines = [GraphVertexInline, GraphEdgeInline]
+    inlines = [GraphVertexInline]
 
 
 class GraphEdgeAdmin(admin.ModelAdmin):
