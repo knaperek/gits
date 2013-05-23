@@ -64,6 +64,7 @@ def solve_quiz(request, quiz_id, page=None):
     except IndexError:
         # messages.set_level(request, messages.DEBUG)
         messages.info(request, 'Last question answered.')
+        quiz_result.auto_evaluate_answers()
         return HttpResponseRedirect(reverse('exam:quiz-detail', kwargs={'quiz_id':quiz_id}))
 
     print('Question id: {}'.format(question.id))

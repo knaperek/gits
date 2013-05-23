@@ -49,9 +49,11 @@ class Quiz(models.Model):
         # Teacher is always allowed to take the course 
         if user == self.teacher: 
             return True
+        already_evaluated = self.quizresult_set.filter(student=user, total_grade__isnull=False).exists()
         # Check individual users allowed to take the quiz
         # if user in self.users_opened_for.all() and not self.quizresult_set.filter(student=user).exists():  # Do not allow students to repeat the quiz (for now /TODO)
-        if user in self.users_opened_for.all():  # update: dont check otherwise user would not be allowed to continue with next pages!
+        # if user in self.users_opened_for.all():  # update: dont check quizresult exitence otherwise user would not be allowed to continue with next pages!
+        if user in self.users_opened_for.all() and not already_evaluated:  # update 2: check if is already evaluated by checking the total_grade attribute
             return True
         # Check groups allowed to take the quiz
         return bool(set(user.groups.all()) & set(self.groups_opened_for.all()))
@@ -70,7 +72,7 @@ class QuizRandomQuestionsGroup(models.Model):
 
     def __unicode__(self):
         return self.quiz
-		
+        
 class QuestionGroup(models.Model):
     name = models.CharField(_('name'), max_length=50)
     description = models.TextField(_('description'), blank=True)
