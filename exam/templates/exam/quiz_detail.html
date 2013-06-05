@@ -11,8 +11,9 @@
 {% if result %}
 <div>
 <table>
-	<tr><td>Total grade:</td><td>{{ result.total_grade }}</td></tr>
-	<tr><td>Duration:</td><td>{{ result.duration }}</td></tr>
+	{# <tr><td>Total grade:</td><td>{{ result.total_grade }}</td></tr> #}
+	<tr><td>Total score:</td><td>{{ result.total_grade }}</td></tr>
+	{# <tr><td>Duration:</td><td>{{ result.duration }}</td></tr> #}
 	<tr><td>Started:</td><td>{{ result.timestamp }}</td></tr>
 </table>
 </div>
