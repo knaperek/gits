@@ -16,6 +16,7 @@ class GraphEdgeInline(admin.StackedInline):
 class GraphQuestionTypeAdmin(admin.ModelAdmin):
     # inlines = [GraphVertexInline, GraphEdgeInline]
     inlines = [GraphVertexInline]
+    fields = ('name', 'widget_for_creation', 'widget_for_solution', 'engine_for_assessment')
 
 
 class GraphEdgeAdmin(admin.ModelAdmin):
