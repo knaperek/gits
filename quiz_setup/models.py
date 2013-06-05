@@ -42,7 +42,10 @@ class Quiz(models.Model):
     def is_opened(self):
         """ Evaluates attributes and current time and tells if the quiz is currently opened. """
         # TODO: make use of TZ (see django utils: now, ...)
-        return self.manually_opened or self.auto_open_at <= datetime.datetime.now() <= self.auto_close_at
+        try:
+            return self.manually_opened or self.auto_open_at <= datetime.datetime.now() <= self.auto_close_at
+        except TypeError:
+            return False
 
     def is_opened_for_user(self, user):
         """ Checks if the user is allowed to take the quiz. Does not check if the quiz is opened right now! """
