@@ -4,8 +4,10 @@ from django.contrib import admin
 from results.models import *
 
 class AnswerAdmin(admin.ModelAdmin):
+	fields = ('question', 'grade', 'quiz_result', 'answer_data')
 	readonly_fields = ('question', 'quiz_result')
-	list_display = ('quiz_result__user', 'quiz_result__quiz', 'question', 'grade')
+	# list_display = ('quiz_result__student', 'quiz_result__quiz', 'question', 'grade')
+	list_display = ('student', 'quiz', 'question', 'grade')
 
 class QuizResultAdmin(admin.ModelAdmin):
 	list_display = ('quiz', 'student', 'timestamp', 'total_grade')
