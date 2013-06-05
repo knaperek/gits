@@ -33,13 +33,13 @@ class Answer(models.Model):
     def __unicode__(self):
         return unicode(self.grade)
 
-    @property
     def student(self):  # just shortcut to student
         return self.quiz_result.student
+    student.admin_order_field = 'quiz_result__student'
 
-    @property
     def quiz(self):  # just shortcut to quiz
         return self.quiz_result.quiz
+    quiz.admin_order_field = 'quiz_result__quiz'
 
     def auto_evaluate(self):
         """ Evaluates itself using relevant engine and assigns grade. """

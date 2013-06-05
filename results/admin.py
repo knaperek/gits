@@ -8,6 +8,7 @@ class AnswerAdmin(admin.ModelAdmin):
 	readonly_fields = ('question', 'quiz_result')
 	# list_display = ('quiz_result__student', 'quiz_result__quiz', 'question', 'grade')
 	list_display = ('student', 'quiz', 'question', 'grade')
+	list_filter = ('quiz_result__quiz', 'question',)
 
 class QuizResultAdmin(admin.ModelAdmin):
 	list_display = ('quiz', 'student', 'timestamp', 'total_grade')
