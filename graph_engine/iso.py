@@ -15,18 +15,18 @@ def init():
     print(check_isomorphism(j1, j2))
 
 
-# najebat jsony do g1 a g2
 def check_isomorphism(json_1, json_2):
     g1 = json.loads(json_1)
     g2 = json.loads(json_2)
 
-    nodes_1 = [(i['id'], {'type': i['type']}) for i in g1['nodes']]
-    edges_1 = [(i['from'],i['to'], {'type': i['type']}) for i in g1['edges']]
+    try:
+        nodes_1 = [(i['id'], {'type': i['type']}) for i in g1['nodes']]
+        edges_1 = [(i['from'],i['to'], {'type': i['type']}) for i in g1['edges']]
 
-
-    nodes_2 = [(i['id'], {'type': i['type']}) for i in g2['nodes']]
-    edges_2 = [(i['from'],i['to'], {'type': i['type']}) for i in g2['edges']]
-
+        nodes_2 = [(i['id'], {'type': i['type']}) for i in g2['nodes']]
+        edges_2 = [(i['from'],i['to'], {'type': i['type']}) for i in g2['edges']]
+    except KeyError:
+        return g1 == g2  # if graph isomorphism check is not possible, fall back to simple json-level equality check
 
     graph_1 = nx.Graph()
     graph_1.add_nodes_from(nodes_1)
