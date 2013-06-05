@@ -39,7 +39,7 @@ class Answer(models.Model):
             try:
                 # compare correct_answer with this answer
                 if check_isomorphism(correct_answer.answer_data, self.answer_data):
-                    self.grade = correct_answer.grade / 100. * self.question.mark
+                    self.grade = correct_answer.grade / 100 * self.question.mark
                     self.save()
                     return True
             except ValueError as err:
