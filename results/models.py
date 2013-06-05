@@ -65,5 +65,5 @@ class QuizResult(models.Model):
         """ Calls auto_evaluate method for every related answer. """
         for answer in self.answer_set.all():
             answer.auto_evaluate()
-        self.total_grade = self.answer_set.aggregate(Sum('grade'))
+        self.total_grade = self.answer_set.aggregate(total_grade=Sum('grade'))['total_grade']
         self.save()
